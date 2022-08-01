@@ -1,4 +1,5 @@
 import time
+import constant
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -28,7 +29,7 @@ async def on_message(message):
         time.sleep(2)
         await message.channel.send("로봇이 학습하길 원하는가?".format(message.author,message.author.mention))
 
-client.run('MTAwMzU4MDQ5MDAwOTI4NDYxOQ.G97CtK.w6W0tZGzXn9a5ubWXmQ0JkKGwTnL2Es0vN3YHY')
+client.run(token)
 
 # # excel Read Value
 # write_wb = Workbook()
