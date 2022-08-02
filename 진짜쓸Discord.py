@@ -7,6 +7,12 @@ from selenium.webdriver.common.by import By
 from openpyxl import Workbook, load_workbook
 
 import discord
+#discord
+
+
+import sys
+from PyQt5.QtWidgets import QApplication, QHBoxLayout, QMainWindow, QPushButton
+
 
 client = discord.Client()
 
@@ -29,30 +35,41 @@ async def on_message(message):
         time.sleep(2)
         await message.channel.send("로봇이 학습하길 원하는가?".format(message.author,message.author.mention))
 
+@client.event
+async def switch_on(message):
+    message.channel.send("아니, 나는 로봇이다.".format(message.author,message.author.mention))
+
+# Execute Program
 client.run(personalToken)
 
-# # excel Read Value
-# write_wb = Workbook()
+class MyApp(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.initUI()
 
-# load_wb = load_workbook("testexcel.xlsx",data_only=True)
+    def initUI(self):
+        # 타이틀바 내용 설정
+        self.setWindowTitle('PyQt5')
+        # 실행 위치
+        self.move(300, 300)
+        # 사이즈
+        self.resize(400, 200)
 
-# load_ws = load_wb["Sheet1"]
-# excelTestValue= load_ws['A1'].value
-# print(excelTestValue)
+        # 버튼 생성
+        btn = QPushButton("버튼1", self)
+        btn.clicked(switch_on())
 
+        # 레이아웃 생성
+        layout = QHBoxLayout()
+        # 레이아웃에 버튼 넣기
+        layout.addWidget(btn)
+        # 최상위 UI에 생성한 Layout 넣기
+        self.setLayout(layout)
 
+        # 보여주기
+        self.show()
 
-# # Using web platform : basic - Chrome
-# driver = webdriver.Chrome()
-
-# driver.implicitly_wait(2)
-# driver.get('http://www.python.org')
-# assert "Python" in driver.title
-# elem = driver.find_element(By.NAME, "q")
-# elem.clear()
-# elem.send_keys("pycon")
-# elem.send_keys(Keys.RETURN)
-
-
-
-
+if __name__ == '__main__':
+   app = QApplication(sys.argv)
+   ex = MyApp()
+   sys.exit(app.exec_())
